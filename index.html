@@ -1,0 +1,135 @@
+
+<!DOCTYPE html>
+<link rel="stylesheet" href="styles.css">
+
+<html>
+    <head>
+        <title>spongebob</title>
+    </head>
+    <body>
+        <h1>welcome to the bob website</h1>
+        <img src="https://upload.wikimedia.org/wikipedia/commons/thumb/7/7a/SpongeBob_SquarePants_character.png/250px-SpongeBob_SquarePants_character.png" alt="spongebob image" width="300">
+        <p>this website is dedicated to sponegbob</p>
+        <img src="https://preview.redd.it/sad-spongebob-gif-with-effects-also-included-static-image-v0-pbuh8yev9hd91.gif?width=600&auto=webp&s=32c2077f8577401d06d41000aca0b73e941acfe8" alt="spongebob gif" width="300">
+        <h2>about comic sans</h2>
+        <p>comic sans is a casual script typeface designed by vincent connare and released by microsoft in 1994. it was inspired by comic book lettering and has become widely used for informal documents and children's materials.</p>
+        <h2>spongebobs relationship with comic sans</h2>
+        <img src="https://i.pinimg.com/736x/c6/a6/9c/c6a69cd10784cf276a6ddee1a68e7889.jpg" alt="spongebob comic sans" width="300">
+        robert squarepants
+        <style>
+        @keyframes move-across {
+            0% { transform: translateX(0); }
+            100% { transform: translateX(80vw); }
+        }
+        img[alt="spongebob comic sans"] {
+            position: relative;
+            animation: move-across 5s linear infinite alternate;
+        }
+        </style>
+        <p>the spongebob squarepants series often uses comic sans in its title cards, promotional materials, and merchandise. the playful and whimsical nature of the font perfectly complements the lighthearted and humorous tone of the show.</p>
+        <h2>why we love comic sans</h2>
+        <ul>
+            <li>it's fun and playful</li>
+            <li>it's easy to read for children</li>
+            <li>it adds a touch of whimsy to any document</li>
+        </ul>
+        <img src="https://helloartsy.com/wp-content/uploads/cartoons/draw-spongebob/draw-spongebob.jpg" alt="spongebob gif2" width="300">
+        <style>
+        @keyframes slow-spin {
+            from { transform: rotate(0deg); }
+            to { transform: rotate(360deg); }
+        }
+        img[alt="spongebob gif"] {
+            animation: slow-spin 20s linear infinite;
+        }
+        </style>
+        <h2>spongebob solitairepants</h2>
+        <p>spongebob solitairepants is a fun and engaging card game featuring your favorite underwater characters. it's a great way to pass the time and enjoy the whimsical world of spongebob.</p>
+        <img src="https://i.ytimg.com/vi/MM1XMATrUqc/maxresdefault.jpg" alt="spongebob solitairepants" width="300">
+        <div id="solitaire-game" style="margin: 40px 0;">
+            <h3>spongebob solitairepants</h3>
+            <button id="deal-btn">deal cards</button>
+            <div id="solitaire-board" style="display: flex; gap: 10px; margin-top: 20px;"></div>
+            <p id="solitaire-message" style="font-weight: bold; color: green;"></p>
+        </div>
+        <script>
+        const cards = [
+            {name: "Spongebob", img: "https://upload.wikimedia.org/wikipedia/commons/7/7a/SpongeBob_SquarePants_character.png"},
+            {name: "Patrick", img: "https://upload.wikimedia.org/wikipedia/commons/2/28/Patrick_Star_character.png"},
+            {name: "Squidward", img: "https://cdn11.bigcommerce.com/s-mpz9h6/images/stencil/1280x1280/products/329022/503814/dhsbs-9365-3_xl__80552.1731685298.jpg?c=2"},
+            {name: "Mr. Krabs", img: "https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcTU_8PzNGCHBU_QO1MuTccsofqOlxC5H2mZSg&s"},
+            {name: "Sandy", img: "https://cdn.musicboard.app/musicboard/media/ucbj1moct4AP9w8ak8vWOENfDPl60nPeZNTpU4JYKLKApnlK6u5hd6AVOdA8JW2T.webp"}
+        ];
+
+        function shuffle(array) {
+            for (let i = array.length - 1; i > 0; i--) {
+                const j = Math.floor(Math.random() * (i + 1));
+                [array[i], array[j]] = [array[j], array[i]];
+            }
+        }
+
+        let revealed = [];
+        let matched = 0;
+
+        function dealSolitaire() {
+            const board = document.getElementById('solitaire-board');
+            const msg = document.getElementById('solitaire-message');
+            board.innerHTML = '';
+            msg.textContent = '';
+            revealed = [];
+            matched = 0;
+
+            // Use 2 of each card for matching pairs
+            let deck = [...cards, ...cards];
+            shuffle(deck);
+
+            deck.forEach((card, idx) => {
+                const cardDiv = document.createElement('div');
+                cardDiv.className = 'solitaire-card';
+                cardDiv.style.width = '100px';
+                cardDiv.style.height = '140px';
+                cardDiv.style.border = '2px solid #ccc';
+                cardDiv.style.borderRadius = '10px';
+                cardDiv.style.background = '#fff';
+                cardDiv.style.display = 'flex';
+                cardDiv.style.alignItems = 'center';
+                cardDiv.style.justifyContent = 'center';
+                cardDiv.style.cursor = 'pointer';
+                cardDiv.style.position = 'relative';
+                cardDiv.dataset.idx = idx;
+                cardDiv.dataset.name = card.name;
+                cardDiv.innerHTML = `<span style="font-size:2em;">?</span>`;
+                cardDiv.onclick = function() {
+                    if (cardDiv.classList.contains('matched') || revealed.length === 2 || cardDiv.classList.contains('flipped')) return;
+                    cardDiv.innerHTML = `<img src="${card.img}" alt="${card.name}" width="80"><br><span style="font-size:0.8em;">${card.name}</span>`;
+                    cardDiv.classList.add('flipped');
+                    revealed.push({div: cardDiv, name: card.name});
+                    if (revealed.length === 2) {
+                        setTimeout(() => {
+                            if (revealed[0].name === revealed[1].name) {
+                                revealed[0].div.classList.add('matched');
+                                revealed[1].div.classList.add('matched');
+                                matched += 2;
+                                if (matched === deck.length) {
+                                    msg.textContent = "well done";
+                                }
+                            } else {
+                                revealed[0].div.innerHTML = `<span style="font-size:2em;">?</span>`;
+                                revealed[1].div.innerHTML = `<span style="font-size:2em;">?</span>`;
+                                revealed[0].div.classList.remove('flipped');
+                                revealed[1].div.classList.remove('flipped');
+                            }
+                            revealed = [];
+                        }, 800);
+                    }
+                };
+                board.appendChild(cardDiv);
+            });
+        }
+
+        document.getElementById('deal-btn').onclick = dealSolitaire;
+        </script>
+        <h2>conclusion</h2>
+        <p>whether you're a fan of spongebob or just love the quirky charm of comic sans, this website celebrates the unique connection between the two. So go ahead, embrace your inner child, and let comic sans bring a smile to your face!</p>
+
+    </body>

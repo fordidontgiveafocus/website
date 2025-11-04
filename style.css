@@ -1,0 +1,19 @@
+#stylesheet
+body {
+    background-color: yellow;
+    font-family: "Comic Sans MS", cursive, sans-serif;
+}
+
+h1 {
+    color: yellow;
+    text-align: center;
+}
+p {
+    font-family: "Comic San MS";
+    font-size: 20px;
+    text-align: center;
+    color: red;
+    text-decoration: underline;
+    font-weight: bold;
+    font-style: italic;
+} 
